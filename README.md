@@ -91,6 +91,7 @@ including security, maintainability, performance optimization, exception handlin
 10.	Migration Task/Work/Command
 
 	add-migration "BSSConfigurationMigration"
+	
 	update-database
 
 11.	How to check our code through OpenAPI
