@@ -3,6 +3,7 @@ using BookStoreWebApi.DTOs;
 using BookStoreWebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreWebApi.Controllers
 {
@@ -24,8 +25,8 @@ namespace BookStoreWebApi.Controllers
             if (dto != null)
             {
                 var book = new Book() { Title = dto.Title, Author = dto.Author, Description = dto.Description, Price = dto.Price };
-                _dbContext.Books.Add(book);
-                _dbContext.SaveChanges();
+                _dbContext.Books.Add(book);//Added means added in memory only
+                _dbContext.SaveChanges();//means data is persist now
             }
             return "Inserted";
         }
@@ -46,7 +47,9 @@ namespace BookStoreWebApi.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<Book> GetBook(int id)
         {
-            var book = _dbContext.Books.Find(id);
+
+            //var book = _dbContext.Books.Find(id);//means Unchange tracking is on
+            var book = _dbContext.Books.AsNoTracking().First(book => book.Id == id);//means Detached mode and tracking is disable now
             if (book == null)
             {
                 return NotFound("Book Not Found");
@@ -58,7 +61,7 @@ namespace BookStoreWebApi.Controllers
         [HttpPut("{id:int}")]
         public ActionResult<Book> UpdateBook(BookDTO book, int id)
         {
-            var _book = _dbContext.Books.Find(id);
+            var _book = _dbContext.Books.Find(id);//means Unchange tracking is on
             if (_book == null)
             {
                 return NotFound("Book Not Found");
@@ -69,7 +72,7 @@ namespace BookStoreWebApi.Controllers
             _book.Description = book.Description;
             _book.Price = book.Price;
 
-            _dbContext.SaveChanges();
+            _dbContext.SaveChanges();//now data is modified and persisted also
 
             return Ok(_book);
         }
@@ -78,16 +81,25 @@ namespace BookStoreWebApi.Controllers
         [HttpDelete("{id:int}")]
         public ActionResult<Book> DeleteBook(int id)
         {
-            var _book = _dbContext.Books.Find(id);
+            var _book = _dbContext.Books.Find(id);//means Unchange tracking is on
             if (_book == null)
             {
                 return NotFound("Book Not Found");
             }
 
-            _dbContext.Books.Remove(_book);
-            _dbContext.SaveChanges();
+            _dbContext.Books.Remove(_book);//means data is remove in memory
+            _dbContext.SaveChanges();//now data is persisted
 
             return NoContent();
         }
     }
 }
+/**
+ * States in Entity Framework
+ * There are five states in EF
+ * 1) Added
+ * 2) Modified
+ * 3) Unchanged
+ * 4) Deleted
+ * 5) Detached
+ */
