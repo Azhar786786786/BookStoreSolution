@@ -57,17 +57,23 @@ including security, maintainability, performance optimization, exception handlin
 
 
 01. Install required Packages (3)
+
 	Microsoft.EntityFrameworkCore
+	
 	Microsoft.EntityFrameworkCore.SqlServer
+	
 	Microsoft.EntityFrameworkCore.Tools
 	
 02.	Install one more Package for Api Documentation
+
 	Scalar.AspNetCore
 	
 	Added configuration in Program.cs class
+	
 	app.MapScalarApiReference("/scalar");
 	
 03.	Added configuration in appsetting.json file
+
 	"ConnectionStrings": {
 			"DefaultConnection": "Server=.;Database=BookStoreAppDB;Trusted_Connection=True;TrustServerCertificate=True;"
 	}
