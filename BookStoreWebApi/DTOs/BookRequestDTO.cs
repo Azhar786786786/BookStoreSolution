@@ -1,6 +1,6 @@
 ﻿namespace BookStoreWebApi.DTOs
 {
-    public class BookDTO
+    public class BookRequestDTO
     {
         public string Title { get; set; }
         public string Description { get; set; }

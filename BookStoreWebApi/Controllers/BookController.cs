@@ -20,7 +20,7 @@ namespace BookStoreWebApi.Controllers
 
         //Added Book Details
         [HttpPost]
-        public string AddBookDetail(BookDTO dto)
+        public string AddBookDetail(BookRequestDTO dto)
         {
             if (dto != null)
             {
@@ -68,7 +68,7 @@ namespace BookStoreWebApi.Controllers
 
         //Update a book through Id
         [HttpPut("{id:int}")]
-        public ActionResult<Book> UpdateBook(BookDTO book, int id)
+        public ActionResult<Book> UpdateBook(BookRequestDTO book, int id)
         {
             var _book = _dbContext.Books.Find(id);//means Unchange tracking is on
             if (_book == null)
