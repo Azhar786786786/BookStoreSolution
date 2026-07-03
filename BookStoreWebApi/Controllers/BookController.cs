@@ -41,8 +41,18 @@ namespace BookStoreWebApi.Controllers
             var filterBooks = books.Where(x => x.Price > 500);//It is also bad practice
             */
             Console.WriteLine("Before Query : ");
-            //var books = _dbContext.Books.Where(book => book.Price > 500);//It is deffered Execution and it is not exection in sql server
-            var books = _dbContext.Books.Where(book => book.Price > 500).ToList();//It is deffered Execution and it is exection in sql server
+            //var books = _dbContext.Books.Where(book => book.Price > 500);//It is deffered Execution and it is not execution in sql server
+            //var books = _dbContext.Books.Where(book => book.Price > 500).ToList();//It is deffered Execution and it is execution in sql server
+            var books = _dbContext.Books.AsNoTracking().Select(book => new BookResponseDTO
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Author = book.Author,
+                Price = book.Price
+            })
+                .OrderBy(book => book.Price)//It is use for sorting
+                .ToList();//It is Projection Execution and it is execution in sql server
+
             Console.WriteLine("After Query : ");
             if (books == null)
             {
