@@ -11,7 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 //DB Registering
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+.LogTo(Console.WriteLine, LogLevel.Information));
 
 var app = builder.Build();
 

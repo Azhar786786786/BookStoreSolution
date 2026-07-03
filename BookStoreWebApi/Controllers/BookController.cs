@@ -35,11 +35,20 @@ namespace BookStoreWebApi.Controllers
         [HttpGet]
         public ActionResult<List<Book>> GetBooks()
         {
-            var books = _dbContext.Books.ToList();
+            // var books = _dbContext.Books.ToList();//It is bad practice
+
+            /**var books = _dbContext.Books.ToList();
+            var filterBooks = books.Where(x => x.Price > 500);//It is also bad practice
+            */
+            Console.WriteLine("Before Query : ");
+            //var books = _dbContext.Books.Where(book => book.Price > 500);//It is deffered Execution and it is not exection in sql server
+            var books = _dbContext.Books.Where(book => book.Price > 500).ToList();//It is deffered Execution and it is exection in sql server
+            Console.WriteLine("After Query : ");
             if (books == null)
             {
                 return NotFound("Book does not exist.");
             }
+            Console.WriteLine("Sabke bad ki Query : ");
             return Ok(books);
         }
 
@@ -49,7 +58,7 @@ namespace BookStoreWebApi.Controllers
         {
 
             //var book = _dbContext.Books.Find(id);//means Unchange tracking is on
-            var book = _dbContext.Books.AsNoTracking().First(book => book.Id == id);//means Detached mode and tracking is disable now
+            var book = _dbContext.Books.AsNoTracking().FirstOrDefault(book => book.Id == id);//means Detached mode and tracking is disable now and it's ReadOnly
             if (book == null)
             {
                 return NotFound("Book Not Found");
