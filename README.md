@@ -89,6 +89,7 @@ including security, maintainability, performance optimization, exception handlin
 09.	AppDbContext class and registered in Program.cs class
 	
 10.	Migration Task/Work/Command
+
 	add-migration "BSSConfigurationMigration"
 	update-database
 
