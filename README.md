@@ -75,7 +75,9 @@ including security, maintainability, performance optimization, exception handlin
 03.	Added configuration in appsetting.json file
 
 	"ConnectionStrings": {
+	
 			"DefaultConnection": "Server=.;Database=BookStoreAppDB;Trusted_Connection=True;TrustServerCertificate=True;"
+			
 	}
 	
 04.	Added Models Folder and added their classes
@@ -95,9 +97,11 @@ including security, maintainability, performance optimization, exception handlin
 	update-database
 
 11.	How to check our code through OpenAPI
+
 	https://localhost:7156/openapi/v1.json
 	
 12.	How to check our code through Scalar
+
 	https://localhost:7156/scalar/
 	
 13.	Added DTOs Folder and added their classes
